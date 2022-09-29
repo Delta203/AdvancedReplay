@@ -24,6 +24,12 @@
             <id>minecraft-repo</id>
             <url>https://libraries.minecraft.net/</url>
         </repository>
+        <!-- CloudNet
+        <repository>
+		    <id>cloudnet-releases</id>
+		    <url>https://repo.cloudnetservice.eu/repository/releases/</url>
+		</repository>
+		-->
     </repositories>
 
     <dependencies>
@@ -54,6 +60,14 @@
             <version>1.5.21</version>
             <scope>provided</scope>
         </dependency>
+        <!-- CloudNet
+        <dependency>
+		    <groupId>de.dytanic.cloudnet</groupId>
+		    <artifactId>cloudnet-bridge</artifactId>
+		    <version>3.4.0-RELEASE</version>
+		    <scope>provided</scope>
+		</dependency>
+		-->
     </dependencies>
 
     <properties>

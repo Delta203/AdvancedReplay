@@ -114,9 +114,13 @@ public class Replayer {
 
 					executeTick(currentTicks++, false);
 
-					if ((currentTicks + 2) < duration && speed == 2)  {
+					if ((currentTicks + 4) < duration && speed == 4)  {
 						executeTick(currentTicks++, false);
-
+						executeTick(currentTicks++, false);
+						
+					}else if ((currentTicks + 2) < duration && speed == 2)  {
+						executeTick(currentTicks++, false);
+						
 					}
 					
 					updateXPBar();
@@ -174,7 +178,7 @@ public class Replayer {
 	}
 	
 	public void stop() {
-		sendMessage("Replay finished.");
+		sendMessage("§cDas Replay ist vorbei!");
 		
 		this.run.cancel();
 		this.getReplay().getData().getActions().clear();

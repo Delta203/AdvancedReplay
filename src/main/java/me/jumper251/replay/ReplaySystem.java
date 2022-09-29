@@ -3,11 +3,10 @@ package me.jumper251.replay;
 
 import java.util.HashMap;
 
-
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-
-
+import me.delta203.replay.acelounge.AceLoungeStuff;
 import me.jumper251.replay.filesystem.ConfigManager;
 import me.jumper251.replay.filesystem.saving.DatabaseReplaySaver;
 import me.jumper251.replay.filesystem.saving.DefaultReplaySaver;
@@ -61,7 +60,11 @@ public class ReplaySystem extends JavaPlugin {
 			ReplayCleanup.cleanupReplays();
 		}
 		
-		getLogger().info("Finished (" + (System.currentTimeMillis() - start) + "ms)");
+		if(Bukkit.getServer().getMotd().equalsIgnoreCase("Replay Server")) {
+			Bukkit.getPluginManager().registerEvents(new AceLoungeStuff(), instance);
+		}
+		
+		getLogger().info("Plugin geladen (" + (System.currentTimeMillis() - start) + "ms)");
 
 	}
 	

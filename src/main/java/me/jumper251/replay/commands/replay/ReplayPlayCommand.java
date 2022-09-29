@@ -34,13 +34,13 @@ public class ReplayPlayCommand extends SubCommand {
 		final Player p = (Player)cs;	
 		
 		if (ReplaySaver.exists(name) && !ReplayHelper.replaySessions.containsKey(p.getName())) {
-			p.sendMessage(ReplaySystem.PREFIX + "Loading replay §e" + name + "§7...");
+			p.sendMessage(ReplaySystem.PREFIX + "Die Replay-Daten von §e" + name + "§7 werden geladen...");
 			try {
 				ReplaySaver.load(args[1], new Consumer<Replay>() {
 					
 					@Override
 					public void accept(Replay replay) {
-						p.sendMessage(ReplaySystem.PREFIX + "Replay loaded. Duration §e" + (replay.getData().getDuration() / 20) + "§7 seconds.");
+						p.sendMessage(ReplaySystem.PREFIX + "Das Replay wurde geladen. Dauer: §e" + (replay.getData().getDuration() / 20) + "§7 Sekunden");
 						replay.play(p);
 					}
 				});
@@ -51,7 +51,7 @@ public class ReplayPlayCommand extends SubCommand {
 				p.sendMessage(ReplaySystem.PREFIX + "§cError while loading §o" + name + ".replay. §r§cCheck console for more details.");
 			}
 		} else {
-			p.sendMessage(ReplaySystem.PREFIX + "§cReplay not found.");
+			p.sendMessage(ReplaySystem.PREFIX + "§cReplay wurde nicht gefunden.");
 		}
 		
 		return true;

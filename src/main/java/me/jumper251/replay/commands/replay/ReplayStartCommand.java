@@ -20,11 +20,17 @@ import me.jumper251.replay.utils.StringUtils;
 public class ReplayStartCommand extends SubCommand {
 
 	public ReplayStartCommand(AbstractCommand parent) {
-		super(parent, "start", "Nehme ein neues Replay auf", "start [§8Name§b][§8:Dauer§b] [§8<Spieler...>§b]", false); 
+		super(parent, "start", "§cNehme ein neues Replay auf", "start [§8Name§b][§8:Dauer§b] [§8<Spieler...>§b]", false); 
 	}
 
 	@Override
 	public boolean execute(CommandSender cs, Command cmd, String label, String[] args) {
+		/* console only */
+		if(!cs.equals(Bukkit.getConsoleSender())) {
+			cs.sendMessage(ReplaySystem.PREFIX + "§cNur die Console darf den Befehl ausführen.");
+			return false;
+		}
+		
 		if (args.length < 1) return false;
 		
 		String name = parseName(args);

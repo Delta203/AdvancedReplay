@@ -80,8 +80,8 @@ public class ConfigManager {
 			cfg.set("recording.blocks.real_changes", true);
 			cfg.set("recording.entities.enabled", true);
 			cfg.set("recording.entities.items.enabled", true);
-			cfg.set("recording.chat.enabled", false);
-			cfg.set("recording.chat.format", "&r<{name}> {message}");
+			cfg.set("recording.chat.enabled", true);
+			cfg.set("recording.chat.format", "&6{name} &7> &f{message}");
 
 
 			try {

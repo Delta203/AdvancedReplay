@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
@@ -20,11 +21,17 @@ import me.jumper251.replay.utils.ReplayManager;
 public class ReplayStopCommand extends SubCommand {
 
 	public ReplayStopCommand(AbstractCommand parent) {
-		super(parent, "stop", "Stoppe und speichere ein Replay", "stop <§8Name§b> [§8Options§b]", false);
+		super(parent, "stop", "§cStoppe und speichere ein Replay", "stop <§8Name§b> [§8Options§b]", false);
 	}
 
 	@Override
 	public boolean execute(CommandSender cs, Command cmd, String label, String[] args) {
+		/* console only */
+		if(!cs.equals(Bukkit.getConsoleSender())) {
+			cs.sendMessage(ReplaySystem.PREFIX + "§cNur die Console darf den Befehl ausführen.");
+			return false;
+		}
+		
 		if (args.length > 3 || args.length < 2) return false;
 		
 		String name = args[1];

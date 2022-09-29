@@ -14,10 +14,10 @@ public class ReplayCommand extends AbstractCommand {
 	@Override
 	protected MessageFormat setupFormat() {
 		return new MessageFormat()
-				.overview("§b/{command} {args} §7 - {desc}")
-				.syntax(ReplaySystem.PREFIX + "Usage: §b/{command} {args}")
-				.permission(ReplaySystem.PREFIX + "§cKeine Permissions")
-				.notFound(ReplaySystem.PREFIX + "§cCommand wurde nicht gefunden.");
+				.overview("§b/{command} {args} §7{desc}")
+				.syntax(ReplaySystem.PREFIX + "§c/{command} §b{args}")
+				.permission("§cI''m sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.")
+				.notFound(ReplaySystem.PREFIX + "§cDer Befehl wurde nicht gefunden.");
 	}
 
 	@Override
