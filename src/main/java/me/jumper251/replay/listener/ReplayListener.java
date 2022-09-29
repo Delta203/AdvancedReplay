@@ -4,9 +4,7 @@ package me.jumper251.replay.listener;
 
 import java.util.Arrays;
 
-
 import org.bukkit.Chunk;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,7 +25,6 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-
 import me.jumper251.replay.ReplaySystem;
 import me.jumper251.replay.filesystem.ConfigManager;
 import me.jumper251.replay.filesystem.ItemConfig;
@@ -39,9 +36,9 @@ import me.jumper251.replay.replaysystem.replaying.Replayer;
 import me.jumper251.replay.replaysystem.utils.entities.INPC;
 
 
+@SuppressWarnings("deprecation")
 public class ReplayListener extends AbstractListener {
 
-	@SuppressWarnings("deprecation")
 	@EventHandler (priority = EventPriority.MONITOR)
 	public void onInteract(PlayerInteractEvent e) {
 		if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -58,46 +55,40 @@ public class ReplayListener extends AbstractListener {
 				
 				if (itemType == ItemConfigType.PAUSE) {
 					replayer.setPaused(!replayer.isPaused());
-					ReplayHelper.sendTitle(p, " ", "§c❙❙", 20);
+					ReplayHelper.sendTitle(p, " ", "§c§l❙❙", 20);
 				}
 					
 				if (itemType == ItemConfigType.FORWARD) {
 					replayer.getUtils().forward();
-					ReplayHelper.sendTitle(p, " ", "§a»»", 20);
+					ReplayHelper.sendTitle(p, " ", "§a§l»»", 20);
 
 				}
 				if (itemType == ItemConfigType.BACKWARD) {
 					replayer.getUtils().backward();
-					ReplayHelper.sendTitle(p, " ", "§c««", 20);
+					ReplayHelper.sendTitle(p, " ", "§c§l««", 20);
 
 				}
 				
 				
 				if (itemType == ItemConfigType.RESUME) {
 					replayer.setPaused(!replayer.isPaused());
-					ReplayHelper.sendTitle(p, " ", "§a➤", 20);
+					ReplayHelper.sendTitle(p, " ", "§a§l➤", 20);
 
 				}
 				
 				if (itemType == ItemConfigType.SPEED) {
-					if (p.isSneaking()) {
-						if (replayer.getSpeed() < 1) {
-							replayer.setSpeed(1);
-						} else if (replayer.getSpeed() == 1) {
-							replayer.setSpeed(2);
-						}
-						
-					} else {
-						if (replayer.getSpeed() == 2) {
-							replayer.setSpeed(1);
-						} else if (replayer.getSpeed() ==  1) {
-							replayer.setSpeed(0.5D);
-						} else if (replayer.getSpeed() == 0.5D) {
-							 replayer.setSpeed(0.25D);
-						}
+					/* Right click = Speed up */
+					if (replayer.getSpeed() == 2) {
+						replayer.setSpeed(4);
+					} else if (replayer.getSpeed() == 1) {
+						replayer.setSpeed(2);
+					} else if (replayer.getSpeed() ==  0.5D) {
+						replayer.setSpeed(1);
+					} else if (replayer.getSpeed() == 0.25D) {
+						 replayer.setSpeed(0.5D);
+					} else if (replayer.getSpeed() == 0.125D) {
+						 replayer.setSpeed(0.25D);
 					}
-					
-					
 				}
 				
 				if (itemType == ItemConfigType.LEAVE) {
@@ -121,10 +112,36 @@ public class ReplayListener extends AbstractListener {
 				
 				
 			}
+		}else if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+			Player p = e.getPlayer();
+			if (ReplayHelper.replaySessions.containsKey(p.getName())) {
+				e.setCancelled(true);
+				
+				Replayer replayer = ReplayHelper.replaySessions.get(p.getName());
+				if (p.getItemInHand() == null) return;
+				if (p.getItemInHand().getItemMeta() == null) return;
+				
+				ItemMeta meta = p.getItemInHand().getItemMeta();
+				ItemConfigType itemType = ItemConfig.getByIdAndName(p.getItemInHand().getType(), meta.getDisplayName().replaceAll("§", "&"));
+				
+				if (itemType == ItemConfigType.SPEED) {
+					/* Left click = Slow down */
+					if (replayer.getSpeed() == 4) {
+						replayer.setSpeed(2);
+					} else if (replayer.getSpeed() == 2) {
+						replayer.setSpeed(1);
+					} else if (replayer.getSpeed() ==  1) {
+						replayer.setSpeed(0.5D);
+					} else if (replayer.getSpeed() == 0.5D) {
+						 replayer.setSpeed(0.25D);
+					} else if (replayer.getSpeed() == 0.25D) {
+						 replayer.setSpeed(0.125D);
+					}
+				}
+			}
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
 		if (e.getWhoClicked() instanceof Player) {
@@ -132,7 +149,7 @@ public class ReplayListener extends AbstractListener {
 			if (ReplayHelper.replaySessions.containsKey(p.getName())) {
 				e.setCancelled(true);
 				
-				if (e.getView().getTitle().equalsIgnoreCase("§7Teleporter")) {
+				if (e.getView().getTitle().equalsIgnoreCase("§8Teleporter")) {
 					Replayer replayer = ReplayHelper.replaySessions.get(p.getName());
 					
 					if (e.getCurrentItem() != null && e.getCurrentItem().getItemMeta() != null && e.getCurrentItem().getItemMeta().getDisplayName() != null && e.getCurrentItem().getType().getId() == 397) {

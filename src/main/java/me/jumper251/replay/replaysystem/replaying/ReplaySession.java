@@ -42,6 +42,7 @@ public class ReplaySession {
 		this.packetListener = new ReplayPacketListener(replayer);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void startSession() {
 		this.content = this.player.getInventory().getContents();
 		if (this.start == null) {
@@ -94,6 +95,7 @@ public class ReplaySession {
 		
 		new BukkitRunnable() {
 			
+			@SuppressWarnings("deprecation")
 			@Override
 			public void run() {
 				resetPlayer();

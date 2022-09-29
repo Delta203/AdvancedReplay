@@ -1,6 +1,8 @@
 package me.jumper251.replay.replaysystem.replaying;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,6 +16,9 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import com.comphenix.packetwrapper.WrapperPlayServerTitle;
 import com.comphenix.protocol.wrappers.EnumWrappers.TitleAction;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 
 import me.jumper251.replay.filesystem.ItemConfig;
 import me.jumper251.replay.filesystem.ItemConfigOption;
@@ -21,8 +26,6 @@ import me.jumper251.replay.filesystem.ItemConfigType;
 import me.jumper251.replay.utils.ReflectionHelper;
 import me.jumper251.replay.utils.VersionUtil;
 import me.jumper251.replay.utils.VersionUtil.VersionEnum;
-
-import com.comphenix.protocol.wrappers.WrappedChatComponent;
 
 
 public class ReplayHelper {
@@ -38,7 +41,17 @@ public class ReplayHelper {
 		if (option.getOwner() != null && stack.getItemMeta() instanceof SkullMeta) {
  
 			SkullMeta meta = (SkullMeta) stack.getItemMeta();
-			meta.setOwner(option.getOwner());
+			//meta.setOwner(option.getOwner());
+			GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+			profile.getProperties().put("textures", new Property("textures", new String(option.getOwner())));
+			Field profileField = null;
+			try {
+				profileField = meta.getClass().getDeclaredField("profile");
+			}catch(NoSuchFieldException | SecurityException ex) {}
+			profileField.setAccessible(true);
+			try {
+				profileField.set(meta, profile);
+			}catch(IllegalArgumentException | IllegalAccessException ex) {}
 			meta.setDisplayName(displayName);
 			stack.setItemMeta(meta);
 		}
@@ -63,8 +76,9 @@ public class ReplayHelper {
 		return createItem(ItemConfig.getItem(ItemConfigType.RESUME));
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void createTeleporter(Player player, Replayer replayer) {
-		Inventory inv = Bukkit.createInventory(null, ((int)replayer.getNPCList().size() / 9) > 0 ? ((int)Math.floor(replayer.getNPCList().size() / 9)) * 9 : 9 , "§7Teleporter");
+		Inventory inv = Bukkit.createInventory(null, ((int)replayer.getNPCList().size() / 9) > 0 ? ((int)Math.floor(replayer.getNPCList().size() / 9)) * 9 : 9 , "§8Teleporter");
 		
 		int index = 0;
 		

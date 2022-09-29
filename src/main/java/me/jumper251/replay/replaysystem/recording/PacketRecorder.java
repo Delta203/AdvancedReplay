@@ -1,17 +1,12 @@
 package me.jumper251.replay.replaysystem.recording;
 
 import java.util.ArrayList;
-
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.comphenix.protocol.PacketTypeEnum;
-import me.jumper251.replay.replaysystem.utils.entities.EntityMappings;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -38,7 +33,6 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers.PlayerAction;
 import com.comphenix.protocol.wrappers.EnumWrappers.PlayerDigType;
 
-
 import me.jumper251.replay.ReplaySystem;
 import me.jumper251.replay.filesystem.ConfigManager;
 import me.jumper251.replay.listener.AbstractListener;
@@ -55,6 +49,7 @@ import me.jumper251.replay.replaysystem.data.types.PacketData;
 import me.jumper251.replay.replaysystem.data.types.VelocityData;
 import me.jumper251.replay.replaysystem.recording.optimization.ReplayOptimizer;
 import me.jumper251.replay.replaysystem.utils.NPCManager;
+import me.jumper251.replay.replaysystem.utils.entities.EntityMappings;
 import me.jumper251.replay.utils.VersionUtil;
 import me.jumper251.replay.utils.VersionUtil.VersionEnum;
 

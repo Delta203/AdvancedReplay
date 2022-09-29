@@ -94,13 +94,13 @@ public class ItemConfig {
 	}
 	
 	private static void addDefaults() {
-		items.put(ItemConfigType.TELEPORT, new ItemConfigOption(Material.COMPASS, "&7Teleport", 0));
-		items.put(ItemConfigType.SPEED, new ItemConfigOption(Material.WATCH, "&cSlow &8[&eRight&8] &aFast &8[&eShift Right&8]", 1));
-		items.put(ItemConfigType.LEAVE, new ItemConfigOption(Material.WOOD_DOOR, "&7Leave replay", 8));
-		items.put(ItemConfigType.FORWARD, new ItemConfigOption(Material.SKULL_ITEM, "&a» &e10 seconds", 5, "MHF_ArrowRight", 3));
-		items.put(ItemConfigType.BACKWARD, new ItemConfigOption(Material.SKULL_ITEM, "&c« &e10 seconds", 3, "MHF_ArrowLeft", 3));
-		items.put(ItemConfigType.RESUME, new ItemConfigOption(Material.SLIME_BLOCK, "&aResume", 4));
-		items.put(ItemConfigType.PAUSE, new ItemConfigOption(Material.SKULL_ITEM, "&cPause", 4, "Push_red_button", 3));
+		items.put(ItemConfigType.TELEPORT, new ItemConfigOption(Material.COMPASS, "&bTeleporter", 0));
+		items.put(ItemConfigType.SPEED, new ItemConfigOption(Material.WATCH, "&8[&7Links&8] &cLangsamer &7&l| &aSchneller &8[&7Rechts&8]", 1));
+		items.put(ItemConfigType.LEAVE, new ItemConfigOption(Material.IRON_DOOR, "&cReplay verlassen", 8));
+		items.put(ItemConfigType.FORWARD, new ItemConfigOption(Material.SKULL_ITEM, "&a» &e10 Sekunden", 5, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjU0ZmFiYjE2NjRiOGI0ZDhkYjI4ODk0NzZjNmZlZGRiYjQ1MDVlYmE0Mjg3OGM2NTNhNWQ3OTNmNzE5YjE2In19fQ==", 3));
+		items.put(ItemConfigType.BACKWARD, new ItemConfigOption(Material.SKULL_ITEM, "&c« &e10 Sekunden", 3, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGMzMDFhMTdjOTU1ODA3ZDg5ZjljNzJhMTkyMDdkMTM5M2I4YzU4YzRlNmU0MjBmNzE0ZjY5NmE4N2ZkZCJ9fX0=", 3));
+		items.put(ItemConfigType.RESUME, new ItemConfigOption(Material.SLIME_BALL, "&aWeiter", 4));
+		items.put(ItemConfigType.PAUSE, new ItemConfigOption(Material.REDSTONE, "&cPause", 4));
 
 	}
 	

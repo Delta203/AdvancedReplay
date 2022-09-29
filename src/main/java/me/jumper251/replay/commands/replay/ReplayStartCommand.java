@@ -13,7 +13,6 @@ import me.jumper251.replay.ReplaySystem;
 import me.jumper251.replay.api.ReplayAPI;
 import me.jumper251.replay.commands.AbstractCommand;
 import me.jumper251.replay.commands.SubCommand;
-import me.jumper251.replay.filesystem.saving.ReplaySaver;
 import me.jumper251.replay.utils.MathUtils;
 import me.jumper251.replay.utils.ReplayManager;
 import me.jumper251.replay.utils.StringUtils;
@@ -21,7 +20,7 @@ import me.jumper251.replay.utils.StringUtils;
 public class ReplayStartCommand extends SubCommand {
 
 	public ReplayStartCommand(AbstractCommand parent) {
-		super(parent, "start", "Records a new replay", "start [Name][:Duration] [<Players ...>]", false); 
+		super(parent, "start", "Nehme ein neues Replay auf", "start [§8Name§b][§8:Dauer§b] [§8<Spieler...>§b]", false); 
 	}
 
 	@Override
@@ -35,11 +34,11 @@ public class ReplayStartCommand extends SubCommand {
 			return false;
 		}
 		if (name.length() > 40) {
-			cs.sendMessage(ReplaySystem.PREFIX + "§cReplay name is too long.");
+			cs.sendMessage(ReplaySystem.PREFIX + "§cDer Replayname ist zu lang.");
 			return true;
 		}
 		if (ReplayManager.activeReplays.containsKey(name)) {
-			cs.sendMessage(ReplaySystem.PREFIX + "§cReplay already exists.");
+			cs.sendMessage(ReplaySystem.PREFIX + "§cDas Replay existiert bereits.");
 			return true;
 		}
 		
@@ -60,9 +59,9 @@ public class ReplayStartCommand extends SubCommand {
 		ReplayAPI.getInstance().recordReplay(name, cs, toRecord);
 
 		if (duration <= 0) {
-			cs.sendMessage(ReplaySystem.PREFIX + "§aSuccessfully started recording §e" + name + "§7.\n§7Use §6/Replay stop " + name + "§7 to save it.");
+			cs.sendMessage(ReplaySystem.PREFIX + "§aDas Replay §e" + name + " §awird nun aufgenommen.\n§7Benutze §6/Replay stop " + name + "§7 um es zu speichern.");
 		} else {
-			cs.sendMessage(ReplaySystem.PREFIX + "§aSuccessfully started recording §e" + name + "§7.\n§7The Replay will be saved after §6" + duration + "§7 seconds");
+			cs.sendMessage(ReplaySystem.PREFIX + "§aDas Replay §e" + name + " §awird nun aufgenommen.\n§7Das Replay wird in §6" + duration + "§7 Sekunden gespeichert.");
 			
 			new BukkitRunnable() {
 				
@@ -74,7 +73,7 @@ public class ReplayStartCommand extends SubCommand {
 		}
 		
 		if (args.length <= 2) {
-			cs.sendMessage("§7INFO: You are recording all online players.");
+			cs.sendMessage("§7INFO: Du nimmst alle online Spieler auf.");
 		}
 		
 		return true;

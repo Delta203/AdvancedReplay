@@ -1,16 +1,8 @@
 package me.jumper251.replay.replaysystem.recording;
 
 import java.util.ArrayList;
-
-
-
-
-
 import java.util.List;
 import java.util.Set;
-
-
-import me.jumper251.replay.replaysystem.data.types.*;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -28,7 +20,20 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerBedLeaveEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerBucketFillEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 import me.jumper251.replay.filesystem.ConfigManager;
@@ -36,12 +41,25 @@ import me.jumper251.replay.filesystem.MessageBuilder;
 import me.jumper251.replay.listener.AbstractListener;
 import me.jumper251.replay.replaysystem.data.ActionData;
 import me.jumper251.replay.replaysystem.data.ActionType;
+import me.jumper251.replay.replaysystem.data.types.AnimationData;
+import me.jumper251.replay.replaysystem.data.types.BedEnterData;
+import me.jumper251.replay.replaysystem.data.types.BlockChangeData;
+import me.jumper251.replay.replaysystem.data.types.ChatData;
+import me.jumper251.replay.replaysystem.data.types.EntityAnimationData;
+import me.jumper251.replay.replaysystem.data.types.InvData;
+import me.jumper251.replay.replaysystem.data.types.ItemData;
+import me.jumper251.replay.replaysystem.data.types.LocationData;
+import me.jumper251.replay.replaysystem.data.types.MetadataUpdate;
+import me.jumper251.replay.replaysystem.data.types.ProjectileData;
+import me.jumper251.replay.replaysystem.data.types.SerializableItemStack;
+import me.jumper251.replay.replaysystem.data.types.WorldChangeData;
 import me.jumper251.replay.replaysystem.utils.ItemUtils;
 import me.jumper251.replay.replaysystem.utils.NPCManager;
 import me.jumper251.replay.utils.MaterialBridge;
 import me.jumper251.replay.utils.VersionUtil;
 import me.jumper251.replay.utils.VersionUtil.VersionEnum;
 
+@SuppressWarnings("deprecation")
 public class RecordingListener extends AbstractListener {
 
 	
@@ -80,7 +98,6 @@ public class RecordingListener extends AbstractListener {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler 
 	public void onInteract(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
@@ -129,7 +146,6 @@ public class RecordingListener extends AbstractListener {
 
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onConsume(PlayerItemConsumeEvent e) {
 		Player p = e.getPlayer();
@@ -176,7 +192,6 @@ public class RecordingListener extends AbstractListener {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler (ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onCrit(EntityDamageByEntityEvent e) {
 		if (e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
@@ -263,7 +278,6 @@ public class RecordingListener extends AbstractListener {
 
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onThrow(PlayerDropItemEvent e) {
 		Player p = e.getPlayer();
@@ -301,7 +315,6 @@ public class RecordingListener extends AbstractListener {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler (ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlace(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
@@ -323,7 +336,6 @@ public class RecordingListener extends AbstractListener {
 
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler (ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onBreak(BlockBreakEvent e) {
 		Player p = e.getPlayer();
@@ -338,7 +350,6 @@ public class RecordingListener extends AbstractListener {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler (ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onFill(PlayerBucketFillEvent e) {
 		Player p = e.getPlayer();
@@ -361,7 +372,6 @@ public class RecordingListener extends AbstractListener {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler (ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onEmpty(PlayerBucketEmptyEvent e) {
 		Player p = e.getPlayer();

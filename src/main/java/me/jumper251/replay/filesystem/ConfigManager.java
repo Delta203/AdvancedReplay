@@ -35,6 +35,11 @@ public class ConfigManager {
 	
 	public static String DEATH_MESSAGE, LEAVE_MESSAGE, CHAT_FORMAT, JOIN_MESSAGE;
 	
+	/**
+	 * 
+	 * Autoload config for AceLoungeDE
+	 * 
+	 */
 	public static void loadConfigs() {
 		if(!sqlFile.exists()){
 			sqlCfg.set("host", "localhost");
@@ -57,23 +62,23 @@ public class ConfigManager {
 			cfg.set("general.max_length", 3600);
 			cfg.set("general.record_on_startup", false);
 			cfg.set("general.save_on_stop", false);
-			cfg.set("general.use_mysql", false);
+			cfg.set("general.use_mysql", true);
 			cfg.set("general.use_offline_skins", true);
 			cfg.set("general.quality", "high");
 			cfg.set("general.cleanup_replays", -1);
 			cfg.set("general.hide_players", false);
 			cfg.set("general.add_new_players", false);	
-			cfg.set("general.update_notifications", true);
+			cfg.set("general.update_notifications", false);
 			
-			cfg.set("general.death_message", "&6{name} &7died.");
-			cfg.set("general.quit_message", "&6{name} &7left the game.");
-			cfg.set("general.join_message", "&6{name} &7joined the game.");
+			cfg.set("general.death_message", "&6{name} &7ist gestorben");
+			cfg.set("general.quit_message", "&c<- &6{name} &7hat das Spiel verlassen");
+			cfg.set("general.join_message", "&a-> &6{name} &7hat das Spiel betreten");
 
-			cfg.set("replaying.world.reset_changes", false);
+			cfg.set("replaying.world.reset_changes", true);
 			
 			cfg.set("recording.blocks.enabled", true);
 			cfg.set("recording.blocks.real_changes", true);
-			cfg.set("recording.entities.enabled", false);
+			cfg.set("recording.entities.enabled", true);
 			cfg.set("recording.entities.items.enabled", true);
 			cfg.set("recording.chat.enabled", false);
 			cfg.set("recording.chat.format", "&r<{name}> {message}");

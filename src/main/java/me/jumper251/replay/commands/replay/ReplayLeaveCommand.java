@@ -16,7 +16,7 @@ import me.jumper251.replay.replaysystem.replaying.Replayer;
 public class ReplayLeaveCommand extends SubCommand {
 
 	public ReplayLeaveCommand(AbstractCommand parent) {
-		super(parent, "leave", "Leave your Replay", "leave", true);
+		super(parent, "leave", "Verlasse das Replay", "leave", true);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class ReplayLeaveCommand extends SubCommand {
 			replayer.stop();
 			
 		} else {
-			p.sendMessage(ReplaySystem.PREFIX + "§cYou need to play a Replay first");
+			p.sendMessage(ReplaySystem.PREFIX + "§cDu bist nicht in einem Replay.");
 		}
 		
 		return true;

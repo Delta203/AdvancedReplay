@@ -16,7 +16,7 @@ import me.jumper251.replay.filesystem.saving.ReplaySaver;
 public class ReplayDeleteCommand extends SubCommand {
 
 	public ReplayDeleteCommand(AbstractCommand parent) {
-		super(parent, "delete", "Deletes a replay", "delete <Name>", false);
+		super(parent, "delete", "Lösche ein Replay", "delete <§8Name§b>", false);
 	}
 
 	@Override
@@ -27,9 +27,9 @@ public class ReplayDeleteCommand extends SubCommand {
 		
 		if (ReplaySaver.exists(name)) {
 			ReplaySaver.delete(name);
-			cs.sendMessage(ReplaySystem.PREFIX + "§aSuccessfully deleted replay.");
+			cs.sendMessage(ReplaySystem.PREFIX + "§aDas Replay wurde erfolgreich gelöscht.");
 		} else {
-			cs.sendMessage(ReplaySystem.PREFIX + "§cReplay not found.");
+			cs.sendMessage(ReplaySystem.PREFIX + "§cReplay wurde nicht gefunden.");
 		}
 		
 		return true;

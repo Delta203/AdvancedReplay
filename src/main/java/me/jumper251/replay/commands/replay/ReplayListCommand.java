@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -32,7 +33,7 @@ import net.md_5.bungee.api.chat.HoverEvent.Action;
 public class ReplayListCommand extends SubCommand {
 
 	public ReplayListCommand(AbstractCommand parent) {
-		super(parent, "list", "Lists all replays", "list [Page]", false);
+		super(parent, "list", "Zeigt alle Replays", "list [§8Seite§b]", false);
 	}
 
 	@Override
@@ -43,6 +44,7 @@ public class ReplayListCommand extends SubCommand {
 		if (ReplaySaver.getReplays().size() > 0) {
 			int page = 1;
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			format.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
 
 			if (args.length == 2 && MathUtils.isInt(args[1])) page = Integer.valueOf(args[1]);
 			
@@ -51,7 +53,7 @@ public class ReplayListCommand extends SubCommand {
 			replays.sort(dateComparator());
 			
 			CommandPagination<String> pagination = new CommandPagination<>(replays, 9);
-			cs.sendMessage(ReplaySystem.PREFIX + "Available replays: §8(§6" + ReplaySaver.getReplays().size() + "§8) §7| Page: §e" + page + "§7/§e" + pagination.getPages());
+			cs.sendMessage(ReplaySystem.PREFIX + "Verfügbare Replays: §8(§6" + ReplaySaver.getReplays().size() + "§8) §7| Seite: §e" + page + "§7/§e" + pagination.getPages());
 
 			pagination.printPage(page, new IPaginationExecutor<String>() {
 
@@ -64,12 +66,12 @@ public class ReplayListCommand extends SubCommand {
 							ReplayInfo info = DatabaseReplaySaver.getInfo(element);
 
 							comps = new ComponentBuilder(message)
-									.event(new HoverEvent(Action.SHOW_TEXT, new ComponentBuilder("§7Replay §e§l" + info.getID() + "\n\n§7Created by: §6" + info.getCreator() + "\n§7Duration: §6" + (info.getDuration() / 20) + " §8sec" + "\n\n§7Click to play!").create()))
+									.event(new HoverEvent(Action.SHOW_TEXT, new ComponentBuilder("§7Replay §e§l" + info.getID() + "\n\n§7Erstellt von: §6" + info.getCreator() + "\n§7Dauer: §6" + (info.getDuration() / 20) + " §7Sekunden" + "\n\n§aJetzt abspielen!").create()))
 									.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/replay play " + info.getID()))
 									.create();
 						} else {
 							comps = new ComponentBuilder(message)
-									.event(new HoverEvent(Action.SHOW_TEXT, new ComponentBuilder("§7Replay §e§l" + element + "\n\n§7Click to play!").create()))
+									.event(new HoverEvent(Action.SHOW_TEXT, new ComponentBuilder("§7Replay §e§l" + element + "\n\n§aJetzt abspielen!").create()))
 									.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/replay play " + element))
 									.create();
 						}
@@ -83,7 +85,7 @@ public class ReplayListCommand extends SubCommand {
 						
 			
 		} else {
-			cs.sendMessage(ReplaySystem.PREFIX + "§cNo replays found.");
+			cs.sendMessage(ReplaySystem.PREFIX + "§cEs wurden keine Replays gefunden.");
 		}
 		return true;
 	}

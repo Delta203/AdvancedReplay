@@ -27,7 +27,7 @@ public class ReplaySystem extends JavaPlugin {
 	public static Updater updater;
 	public static Metrics metrics;
 	
-	public final static String PREFIX = "§8[§3Replay§8] §r§7";
+	public final static String PREFIX = "§f[§3Replay§f] §r§7";
 
 	
 	@Override

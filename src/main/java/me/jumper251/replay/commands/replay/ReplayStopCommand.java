@@ -2,9 +2,7 @@ package me.jumper251.replay.commands.replay;
 
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-
 import java.util.stream.Collectors;
 
 import org.bukkit.command.Command;
@@ -22,7 +20,7 @@ import me.jumper251.replay.utils.ReplayManager;
 public class ReplayStopCommand extends SubCommand {
 
 	public ReplayStopCommand(AbstractCommand parent) {
-		super(parent, "stop", "Stops and saves a replay", "stop <Name> [Options]", false);
+		super(parent, "stop", "Stoppe und speichere ein Replay", "stop <§8Name§b> [§8Options§b]", false);
 	}
 
 	@Override
@@ -39,22 +37,22 @@ public class ReplayStopCommand extends SubCommand {
 			if (isNoSave || replay.getRecorder().getData().getActions().size() == 0) {
 				replay.getRecorder().stop(false);
 
-				cs.sendMessage(ReplaySystem.PREFIX + "§7Successfully stopped replay §e" + name);
+				cs.sendMessage(ReplaySystem.PREFIX + "§7Replay §e" + name + " §7erfolgreich gespeichert.");
 			} else {
 				if (ReplaySaver.exists(name) && !isForce) {
-					cs.sendMessage(ReplaySystem.PREFIX + "§cReplay already exists. Use §o-force §r§cto overwrite or §o-nosave §r§cto discard the recording.");
+					cs.sendMessage(ReplaySystem.PREFIX + "§cDas Replay existiert bereits. Benutze §o-force §r§cum das alte Replay zu überschreiben oder §o-nosave §r§cum das Replay zu verwerfen.");
 					return true;
 				}
 				
-				cs.sendMessage(ReplaySystem.PREFIX + "Saving replay §e" + name + "§7...");
+				cs.sendMessage(ReplaySystem.PREFIX + "Speichere das Replay §e" + name + "§7...");
 				replay.getRecorder().stop(true);
 			
 				String path = ReplaySaver.replaySaver instanceof DefaultReplaySaver ? ReplaySystem.getInstance().getDataFolder() + "/replays/" + name + ".replay" : null;
-				cs.sendMessage(ReplaySystem.PREFIX + "§7Successfully saved replay" + (path != null ? " to §o" + path : ""));
+				cs.sendMessage(ReplaySystem.PREFIX + "§7Das Replay wurde erfolgreich gespeichert. " + (path != null ? " to §o" + path : ""));
 			}
 			
 		} else {
-			cs.sendMessage(ReplaySystem.PREFIX + "§cReplay not found.");
+			cs.sendMessage(ReplaySystem.PREFIX + "§cReplay wurde nicht gefunden.");
 		}
 		
 		return true;
