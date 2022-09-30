@@ -60,6 +60,14 @@
             <version>1.5.21</version>
             <scope>provided</scope>
         </dependency>
+        <!-- AceLounge Server Manager -->
+        <dependency>
+		    <groupId>com.sample</groupId>
+		    <artifactId>sample</artifactId>
+		    <version>1.0</version>
+		    <scope>system</scope>
+		    <systemPath>C:\Users\User\Desktop\PluginSrc\Plugins\AceLounge_plugins\bukkit\ServerManager.jar</systemPath>
+		</dependency>
         <!-- CloudNet
         <dependency>
 		    <groupId>de.dytanic.cloudnet</groupId>

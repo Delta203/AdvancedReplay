@@ -1,5 +1,10 @@
 package me.jumper251.replay.commands.replay;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.Bukkit;
+
 import me.jumper251.replay.ReplaySystem;
 import me.jumper251.replay.commands.AbstractCommand;
 import me.jumper251.replay.commands.MessageFormat;
@@ -22,16 +27,23 @@ public class ReplayCommand extends AbstractCommand {
 
 	@Override
 	protected SubCommand[] setupCommands() {
+		List<SubCommand> scmd = new ArrayList<>();
+		if(serverisGameserver()) scmd.add(new ReplayStartCommand(this));
+		if(serverisGameserver()) scmd.add(new ReplayStopCommand(this).addAlias("save")); 
+		if(!serverisGameserver()) scmd.add(new ReplayPlayCommand(this));
+		if(!serverisGameserver()) scmd.add(new ReplayDeleteCommand(this).addAlias("remove"));
+		if(!serverisGameserver()) scmd.add(new ReplayLeaveCommand(this));
+		if(!serverisGameserver()) scmd.add(new ReplayInfoCommand(this));
+		if(!serverisGameserver()) scmd.add(new ReplayListCommand(this));
+		scmd.add(new ReplayReloadCommand(this));
 		
-		return new SubCommand[] { new ReplayStartCommand(this), 
-				new ReplayStopCommand(this).addAlias("save"), 
-				new ReplayPlayCommand(this), 
-				new ReplayDeleteCommand(this).addAlias("remove"),
-				new ReplayLeaveCommand(this),
-				new ReplayInfoCommand(this),
-				new ReplayListCommand(this), 
-				new ReplayReloadCommand(this),
-				};
+		SubCommand[] scmdlist = new SubCommand[scmd.size()];
+		scmdlist = scmd.toArray(scmdlist);
+		
+		return scmdlist;
 	}
 
+	private boolean serverisGameserver() {
+		return !Bukkit.getServer().getMotd().equalsIgnoreCase("Replay Server");
+	}
 }

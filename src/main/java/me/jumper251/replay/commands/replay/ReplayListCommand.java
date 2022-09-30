@@ -54,7 +54,8 @@ public class ReplayListCommand extends SubCommand {
 			
 			CommandPagination<String> pagination = new CommandPagination<>(replays, 9);
 			cs.sendMessage(ReplaySystem.PREFIX + "Verfügbare Replays: §8(§6" + ReplaySaver.getReplays().size() + "§8) §7| Seite: §e" + page + "§7/§e" + pagination.getPages());
-
+			cs.sendMessage(ReplaySystem.PREFIX + "Klicke auf ein Replay um es abzuspielen.");
+			
 			pagination.printPage(page, new IPaginationExecutor<String>() {
 
 				@Override

@@ -18,6 +18,9 @@ import me.jumper251.replay.filesystem.saving.ReplaySaver;
 import me.jumper251.replay.replaysystem.Replay;
 import me.jumper251.replay.replaysystem.replaying.ReplayHelper;
 import me.jumper251.replay.utils.fetcher.Consumer;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 
 public class ReplayPlayCommand extends SubCommand {
 
@@ -34,6 +37,7 @@ public class ReplayPlayCommand extends SubCommand {
 		final Player p = (Player)cs;	
 		
 		if (ReplaySaver.exists(name) && !ReplayHelper.replaySessions.containsKey(p.getName())) {
+			p.sendMessage("");
 			p.sendMessage(ReplaySystem.PREFIX + "Die Replay-Daten von §e" + name + "§7 werden geladen...");
 			try {
 				ReplaySaver.load(args[1], new Consumer<Replay>() {
@@ -41,6 +45,23 @@ public class ReplayPlayCommand extends SubCommand {
 					@Override
 					public void accept(Replay replay) {
 						p.sendMessage(ReplaySystem.PREFIX + "Das Replay wurde geladen. Dauer: §e" + (replay.getData().getDuration() / 20) + "§7 Sekunden");
+						p.sendMessage("");
+						
+						BaseComponent[] info, leave, delete;
+						info = new ComponentBuilder("§8[§b§lInfos§8] §7Infos über das Replay")
+								.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/replay info " + name))
+								.create();
+						leave = new ComponentBuilder("§8[§c§lVerlassen§8] §7Verlasse das Replay")
+								.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/replay leave"))
+								.create();
+						delete = new ComponentBuilder("§8[§4§lLöschen§8] §7Lösche das jeweilige Replay")
+								.event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/replay delete " + name))
+								.create();
+						
+						((Player) cs).spigot().sendMessage(info);
+						((Player) cs).spigot().sendMessage(leave);
+						((Player) cs).spigot().sendMessage(delete);
+						p.sendMessage("");
 						replay.play(p);
 					}
 				});

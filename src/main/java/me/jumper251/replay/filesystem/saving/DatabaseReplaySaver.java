@@ -103,12 +103,16 @@ public class DatabaseReplaySaver implements IReplaySaver {
 
 	@Override
 	public List<String> getReplays() {
-		if (replayCache == null) {
+		/*if (replayCache == null) {
 			replayCache = new HashMap<String, ReplayInfo>();
 			
 			DatabaseRegistry.getDatabase().getService().getReplays().stream()
 			.forEach(info -> replayCache.put(info.getID(), info));
-		}
+		}*/
+		replayCache = new HashMap<String, ReplayInfo>();
+		
+		DatabaseRegistry.getDatabase().getService().getReplays().stream()
+		.forEach(info -> replayCache.put(info.getID(), info));
 		
 		return new ArrayList<String>(replayCache.keySet());
 	}
